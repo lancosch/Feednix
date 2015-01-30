@@ -108,6 +108,7 @@ void CursesProvider::init(){
 }
 void CursesProvider::control(){
         int ch;
+        MENU* curMenu;
         if(totalPosts == 0){
                 curMenu = ctgMenu;
         }
@@ -129,7 +130,6 @@ void CursesProvider::control(){
                                 update_panels();
                                 break;
                         case 10:
-                                if(activatePreview) wclear(viewWin);
                                 if(curMenu == ctgMenu){
                                         top = (PANEL *)panel_userptr(top);
 
@@ -244,14 +244,13 @@ void CursesProvider::control(){
 
                                          break;
                                  }
-                        case 'R':{
+                        case 'R':
                                  if(activatePreview) wclear(viewWin);
                                  update_statusline("[Updating stream]", "", false);
                                  refresh();
 
                                  ctgMenuCallback(strdup(item_name(current_item(ctgMenu))));
                                  break;
-                                 }
                         case 'o':
                                  postsMenuCallback(curItem, false);
                                  break;
@@ -410,10 +409,6 @@ void CursesProvider::createPostsMenu(){
         set_menu_mark(postsMenu, "*");
 
         win_show(postsWin, strdup("Posts"), 1, true);
-        if(posts == NULL){ 
-                win_show(ctgWin, strdup("Categories"), 1, true);
-                win_show(postsWin, strdup("Posts"), 2, false);
-        }
 
         menu_opts_off(postsMenu, O_SHOWDESC);
 
@@ -440,18 +435,11 @@ void CursesProvider::ctgMenuCallback(char* label){
                 post_menu(postsMenu);
 
                 print_in_center(postsWin, 3, 1, height, width-4, "All Posts Read", COLOR_PAIR(0));
-
-                currentCategoryRead = true;
-                update_statusline("", "", true);
-
-                top = (PANEL *)panel_userptr(top);
-                top_panel(top);
-
                 win_show(postsWin, strdup("Posts"), 2, false);
                 win_show(ctgWin, strdup("Categories"), 1, true);
 
-                curMenu = ctgMenu;
-                
+                currentCategoryRead = true;
+                update_statusline("", "", true);
                 return;
         }
 
