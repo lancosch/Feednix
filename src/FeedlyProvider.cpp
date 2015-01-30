@@ -1,8 +1,8 @@
 #include <algorithm>
 #include <stdio.h>
 #include <stdlib.h>
-#include <jsoncpp/json/json.h>
-#include <jsoncpp/json/writer.h>
+#include <json/json.h>
+#include <json/writer.h>
 #include <iterator>
 #include <istream>
 #include <termios.h>
