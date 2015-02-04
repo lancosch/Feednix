@@ -1,10 +1,10 @@
 #include <iostream>
-#include <curses.h>
-#include <menu.h>
-#include <panel.h>
+#include <ncursesw/ncurses.h>
+#include <ncursesw/menu.h>
+#include <ncursesw/panel.h>
 
-#ifndef _CURSES_H
-#define _CURSES_H
+#ifndef _CURSESW_H
+#define _CURSESW_H
 
 #include "FeedlyProvider.h"
 

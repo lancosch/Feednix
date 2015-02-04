@@ -1,7 +1,8 @@
-#include <curses.h>
 #include <map>
-#include <panel.h>
-#include <menu.h>
+#include <ncursesw/ncurses.h>
+#include <ncursesw/panel.h>
+#include <ncursesw/menu.h>
+#include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
