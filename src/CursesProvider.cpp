@@ -1,7 +1,8 @@
-#include <curses.h>
 #include <map>
-#include <panel.h>
-#include <menu.h>
+#include <ncursesw/ncurses.h>
+#include <ncursesw/panel.h>
+#include <ncursesw/menu.h>
+#include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
 #include <iostream>
@@ -123,12 +124,13 @@ void CursesProvider::control(){
                 curItem = current_item(curMenu);
                 switch(ch){
                         case KEY_RESIZE:
-                                endwin();
+                                /*win_show(postsWin, "Posts", 1, true);
                                 clear();
                                 refresh();
-                                doupdate();
                                 update_panels();
-                                break;
+                                doupdate();
+                                break;*/
+                                std::cout << "" << std::endl;
                         case 10:
                                 if(curMenu == ctgMenu){
                                         top = (PANEL *)panel_userptr(top);

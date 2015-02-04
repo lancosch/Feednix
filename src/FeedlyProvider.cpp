@@ -7,8 +7,7 @@
 #include <istream>
 #include <termios.h>
 #include <unistd.h>
-#include <ctime>
-
+#include <ctime> 
 #include "FeedlyProvider.h"
 
 #define HOME_PATH getenv("HOME")
@@ -16,9 +15,28 @@ extern std::string TMPDIR;
 
 FeedlyProvider::FeedlyProvider(){
         curl_global_init(CURL_GLOBAL_DEFAULT);
-        verboseFlag = false;
 
         TEMP_PATH = TMPDIR + "/temp.txt";
+        FILE* data_holder = fopen(TEMP_PATH.c_str(), "wb");
+
+        curl = curl_easy_init();
+        curl_easy_setopt(curl, CURLOPT_URL, "https://feedly.com");
+        curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
+        curl_easy_setopt(curl, CURLOPT_AUTOREFERER, true);
+        curl_easy_setopt(curl, CURLOPT_WRITEDATA, data_holder);
+
+
+        curl_res = curl_easy_perform(curl);
+        if(curl_res != CURLE_OK){
+                log_stream << "curl_easy_perform() failed : " << curl_easy_strerror(curl_res) << std::endl;
+                std::cerr  << "ERROR: Could not connect to host. Either Feedly or your internet connection is down\n"  << "curl_easy_perform() failed : " << curl_easy_strerror(curl_res) << std::endl;
+                fclose(data_holder);
+                exit(EXIT_FAILURE);
+        }
+        fclose(data_holder);
+        curl_easy_cleanup(curl);
+
+        verboseFlag = false;
 
         Json::Value root;
         Json::Reader reader;
@@ -81,6 +99,7 @@ void FeedlyProvider::authenticateUser(){
 
         user_data.authToken = (root["developer_token"]).asString();
         user_data.id = (root["userID"]).asString(); 
+        curl_retrive("profile");
 }
 const std::map<std::string, std::string>* FeedlyProvider::getLabels(){
         curl_retrive("categories");
@@ -466,6 +485,7 @@ void FeedlyProvider::curl_retrive(const std::string& uri){
         curl_easy_setopt(curl, CURLOPT_AUTOREFERER, true);
         curl_easy_setopt(curl, CURLOPT_WRITEDATA, data_holder);
         curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
+        curl_easy_setopt(curl, CURLOPT_DNS_CACHE_TIMEOUT, 360);
 
         enableVerbose();
 
@@ -476,8 +496,11 @@ void FeedlyProvider::curl_retrive(const std::string& uri){
                         std::cerr << "ERROR: Invalid Token/ID" << std::endl;
                 if(!isLogStreamOpen) openLogStream();
                 log_stream << "ERROR: Curl Request Failed\n HTTP Response Code: " << response_code << std::endl;
-                if(curl_res != CURLE_OK)
+                if(curl_res != CURLE_OK){
                         log_stream << "curl_easy_perform() failed : " << curl_easy_strerror(curl_res) << std::endl;
+                        std::cerr  << "curl_easy_perform() failed : " << curl_easy_strerror(curl_res) << std::endl;
+                }
+                        
                 exit(EXIT_FAILURE);
         }
 
