@@ -122,12 +122,13 @@ void CursesProvider::control(){
                 curItem = current_item(curMenu);
                 switch(ch){
                         case KEY_RESIZE:
-                                endwin();
+                                /*win_show(postsWin, "Posts", 1, true);
                                 clear();
                                 refresh();
-                                doupdate();
                                 update_panels();
-                                break;
+                                doupdate();
+                                break;*/
+                                std::cout << "" << std::endl;
                         case 10:
                                 if(activatePreview) wclear(viewWin);
                                 if(curMenu == ctgMenu){

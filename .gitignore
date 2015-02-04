@@ -46,6 +46,7 @@ Makefile.in
 
 # Extra
 
+*swp
 Makefile
 config.h
 config.h.in
