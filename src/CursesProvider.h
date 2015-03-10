@@ -22,7 +22,7 @@ class CursesProvider{
                 WINDOW *ctgWin, *postsWin, *viewWin;
                 PANEL  *panels[3], *top;
                 ITEM **ctgItems = NULL, **postsItems = NULL;
-                MENU *ctgMenu = NULL, *postsMenu = NULL;
+                MENU *ctgMenu = NULL, *postsMenu = NULL, *curMenu = NULL;
                 std::string lastEntryRead, statusLine[3];
                 bool currentRank = 0;
                 bool activatePreview = 1;
