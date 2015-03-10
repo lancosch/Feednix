@@ -1,3 +1,7 @@
+#pragma once
+#ifndef _FEEDLY_H
+#define _FEEDLY_H
+
 #include <curl/curl.h>
 #include <string>
 #include <iostream>
@@ -6,10 +10,6 @@
 #include <vector>
 
 #define DEFAULT_FCOUNT 500
-
-// Make sure that the linker uses header file only once
-// Just for some compiliation optimization
-#pragma once
 
 struct UserData{
     std::map<std::string, std::string> categories;
@@ -63,3 +63,4 @@ class FeedlyProvider{
         void extract_galx_value();
         void openLogStream();
 };
+#endif
