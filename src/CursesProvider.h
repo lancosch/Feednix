@@ -46,3 +46,4 @@ class CursesProvider{
                 void update_statusline(const char* update, const char* post, bool showCounter);
                 void update_infoline(const char* info);
 };
+#endif
