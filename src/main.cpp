@@ -17,7 +17,6 @@ void atExitFunction(void){
     system(std::string("rm -R " + TMPDIR + " 2> /dev/null").c_str());
     if(curses != NULL)
         curses->cleanup();
-    std::cout << "Aborted.\nCheck log for details." << std::endl;
 }
 
 void sighandler(int signum){
