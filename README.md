@@ -20,6 +20,8 @@ An ncurses based client for [Feedly](http://feedly.com/).
 
 ### From Source
 
+**Note:** If you are using Ubuntu, Fedora, Mint or you are getting an error during build, please use the Ubuntu-stable branch instead of the main.
+
 First run autogen.sh script.
 
 Then run your standard make commands. Here is a one liner:
@@ -28,11 +30,11 @@ Then run your standard make commands. Here is a one liner:
 
 Thank you @chrisjohnston for mentioning the following dependencies for Ubuntu:
 
-`sudo apt-get install dh-autoreconf libjsoncpp-dev libcurl4-gnutls-dev libncurses5-dev`
+`sudo apt-get install dh-autoreconf libjsoncpp-dev libcurl4-gnutls-dev libncursesw5-dev`
 
 Thank you @bandb42 for mentioning the following dependencies for Fedora:
 
-`sudo yum install dh-autoreconf ncurses-devel jsoncpp-devel libcurl-devel`
+`sudo yum install dh-autoreconf ncursesw-devel jsoncpp-devel libcurl-devel`
 
 ## Clarification on Sign In Method (PLEASE READ)
 
@@ -81,6 +83,9 @@ Please visit this [page](https://feednix-jarkore.rhcloud.com) for details.
 ##Changelog
 
 **The follwoing only lists major updates. For everything in between please see the ChangeLog**
+
+###Update for Ubuntu and Fedora users
+An issue with seg faults on start up was reported and has now been resolved. This was due to a dependency conflict with libncursesw. Please reinstall the dependcies (which have been updated) and clone the Ubuntu-stable branch instead of the main.
 
 ###v0.9
 Once again many thanks to [lejenome](https://github.com/lejenome) for the following:
