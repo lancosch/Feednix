@@ -65,7 +65,7 @@ void CursesProvider::init(){
                 viewWinHeightPer = root["view_win_height_per"].asInt();
 
                 currentRank = root["rank"].asBool();
-                if(root.isMember("preview_active"))
+                if(root.isMember("previewActive"))
                         activatePreview = access("/usr/bin/w3m", X_OK) ? false : root["preview_active"].asBool();
         }
         else{
